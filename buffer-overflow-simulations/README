@@ -1,0 +1,28 @@
+Instructions to reproduce the results:
+Just run the command "sudo ./run.sh", and wait the code to be executed. The figures will be ploted and the time to fetch webpage will be printed.
+Besides, to check the output of ifconfig eth0, just type the command "ifconfig eth0".
+
+1. Why do you see a difference in webpage fetch times with small and large router buffers?
+when buffer size is 20, the time needed to fetch webpage: 
+average: 0.495633333333 
+std deviation: 0.13267635643
+when buffer size is 100, the time to fetch webpage:
+average: 1.00284 
+std deviation: 0.512387874954 
+
+We can see that with larger router buffer, the average time to fetch webpage is even longer. This is mainly resulted from bufferbloat, where packets from high links piled up in the buffer, resulting in a long waiting time and delay for each packet.
+
+
+2. Bufferbloat can occur in other places such as your network interface card (NIC). Check the output of ifconfig eth0 on your VirtualBox VM. What is the (maximum) transmit queue length on the network interface reported by ifconfig? For this queue size and a draining rate of 100 Mbps, what is the maximum time a packet might wait in the queue before it leaves the NIC?
+
+By typing "ifconfig eth0" to check the output of ifconfig eth0, we can find out that the transmit queue length (txqueuelen) is 1000. And we also can find out that the MTU is 1500. Therefore, for a draining rate of 100 Mbps and txqueuelen=1000, MTU=1500, the maximum time a packet waiting in the queue is around 1000 * 1500 * 8 / (100 * 10^6) = 0.12s
+
+
+3. How does the RTT reported by ping vary with the queue size? Write a symbolic equation to describe the relation between the two (ignore computation overheads in ping that might affect the final result).
+
+According to the figures we ploted, the vary of RTT is directly proportional to the vary of the queue size. Therefore, we can write a symbolic equation as: RTT = k * len(queue).
+
+
+4. Identify and describe two ways to mitigate the bufferbloat problem.
+
+One way is to to simply reduce the queue size, having a smaller router buffer. Another way is to limit the difference of bandwidth through the path or to limit the rate of traffic if possible.
