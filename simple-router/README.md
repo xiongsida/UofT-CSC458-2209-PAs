@@ -8,4 +8,4 @@ We are responsible for implementing the logic to handle incoming Ethernet frames
 
 The emulated topology on which our simple router (SR) runs is shown below.
 
-![Screenshot 2022-12-28 at 5.24.47 PM](/Users/sidaxiong/Desktop/Screenshot 2022-12-28 at 5.24.47 PM.png)
+![emulated topology](https://raw.github.com/xiongsid/repositpry/master/UofT-CSC458-2209-PAs/simple-router/imgs/topology.jpg)
